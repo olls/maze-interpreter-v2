@@ -47,7 +47,9 @@ def parse_file(file_):
 
         while line:
             line, cell = get_cell(line)
-            cells[-1].append(cell)
+
+            if cell:
+                cells[-1].append(cell)
 
     return cells
 
