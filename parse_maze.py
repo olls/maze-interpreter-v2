@@ -2,7 +2,7 @@ import re
 
 
 CONTROLS = {
-    'wall': r'##',
+    'wall': r'##|``',
     'path': r'\.\.',
     'splitter': r'<>',
     'pause': r'[0-9]{2}',

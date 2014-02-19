@@ -16,6 +16,7 @@ def main():
     args = get_args()
 
     maze = pi.parse_file(args.file)
+    args.file.close()
     print(maze)
     print('\n'.join(''.join(char+(' '*(10-len(char))) for char in line) for line in maze))
 
