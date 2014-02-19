@@ -1,5 +1,8 @@
 import copy
 
+import funcs
+import controls
+
 
 def create_cars(maze, Car):
     cars = []
@@ -12,58 +15,115 @@ def create_cars(maze, Car):
 
 
 def move_cars(maze, cars):
-    after = copy.deepcopy(maze)
+    maze_after = copy.deepcopy(maze)
+    cars_after = copy.deepcopy(cars)
 
-    for car in cars:
+    for i in range(len(cars)):
+        car = cars_after[i]
 
-        # Check car's previous direction first.
-        d = car.direction
-        x, y = dir_to_pos(car, d)
-        can_move_dir = check_pos(maze, car, x, y)
+        if car.pause:
+            break
 
-        # Check all directions.
-        if not can_move_dir:
-            for d in ['L', 'R', 'U', 'D']:
-                x, y = dir_to_pos(car, d)
-                can_move_dir = check_pos(maze, car, x, y)
+        # Splitters do their own thing.
+        if maze[car.y][car.x].name == 'splitter':
+            car_copy = copy.deepcopy(car)
+            cars_after.append(car_copy)
 
-                if can_move_dir: break
+            car.direction = 'R'
+            car.x += 1
+            car_copy.direction = 'L'
+            car_copy.x -= 1
 
-        # If car can move.
-        if can_move_dir:
-            car.x = x
-            car.y = y
-            car.direction = d
+        else:
 
-    return after, cars
+            # Check car's previous direction first.
+            d = car.direction
+            x, y = dir_to_pos(car, d)
+            can_move_dir = check_pos(maze, x, y)
+
+            # Check all directions.
+            if not can_move_dir:
+                for d in ['D', 'L', 'U', 'R']:
+                    x, y = dir_to_pos(car, d)
+                    can_move_dir = check_pos(maze, x, y)
+
+                    if can_move_dir: break
+
+            # If car can move.
+            if can_move_dir:
+                car.x = x
+                car.y = y
+                car.direction = d
+
+    return maze_after, cars_after
 
 
 def car_actions(maze, cars):
-    after = copy.deepcopy(maze)
+    maze_after = copy.deepcopy(maze)
+    cars_after = copy.deepcopy(cars)
 
-    for car in cars:
-        if maze[car.y][car.y].name == 'wall':
+    removed = []
+    for car in cars_after:
+
+        if car.pause:
+            car.pause -= 1
+            break
+
+        cell = maze[car.y][car.x]
+        cell_after = maze_after[car.y][car.x]
+
+        if cell.name == 'wall':
+            funcs.error('Car got in wall.')
+
+        elif cell.name == 'path':
             pass
 
-    return after, cars
+        elif cell.name == 'pause':
+            car.pause = int(cell.value)
+
+        elif cell.name == 'hole':
+            removed.append(car)
+
+        elif cell.name == 'out':
+            print(car.value)
+
+        elif cell.name == 'in':
+            car.value = input('>')
+
+        elif cell.name == 'one-use':
+            cell_after.name = 'wall'
+            cell_after.value = controls.display['wall']
+
+        elif cell.name == 'direction':
+            car.direction = cell.value[1]
+
+        elif cell.name == 'path':
+            pass
+
+
+
+    for car in removed:
+        cars_after.remove(car)
+
+    return maze_after, cars_after
 
 
 def dir_to_pos(car, direction):
-    if direction in 'Ll':
+    if direction in 'Dd':
+        x = car.x
+        y = car.y + 1
+    elif direction in 'Ll':
         x = car.x - 1
-        y = car.y
-    elif direction in 'Rr':
-        x = car.x + 1
         y = car.y
     elif direction in 'Uu':
         x = car.x
         y = car.y - 1
-    elif direction in 'Dd':
-        x = car.x
-        y = car.y + 1
+    elif direction in 'Rr':
+        x = car.x + 1
+        y = car.y
 
     return x, y
 
 
-def check_pos(maze, car, x, y):
+def check_pos(maze, x, y):
     return not maze[y][x].name == 'wall'

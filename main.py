@@ -1,7 +1,9 @@
+import sys
 import time
 import re
 import argparse
 
+import funcs
 import controls
 import parser
 import run
@@ -12,7 +14,8 @@ class Car:
         self.value = value
         self.x = x
         self.y = y
-        self.direction = 'L'
+        self.direction = 'D'
+        self.pause = 0
 
 
 def get_args():
@@ -36,7 +39,7 @@ def output(maze, cars):
             car = [car for car in cars if car.x == x and  car.y == y]
             if car:
                 if not len(car) == 1:
-                    print('Multiple cars in same cell.')
+                    funcs.error('Multiple cars in same cell.')
                 value = car[-1].value
 
             # Two characters wide.
@@ -65,7 +68,7 @@ def main():
         maze, cars = run.car_actions(maze, cars)
         output(maze, cars)
 
-        time.sleep(.2)
+        time.sleep(.6)
 
 if __name__ == '__main__':
     main()

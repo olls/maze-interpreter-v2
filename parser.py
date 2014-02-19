@@ -1,5 +1,6 @@
 import re
 
+import funcs
 import controls
 
 
