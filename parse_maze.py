@@ -21,12 +21,12 @@ def get_cell(line):
     for name, pattern in CONTROLS.items():
         match = re.match(' *(' + pattern + ')', line)
         if match:
-            result = match.group()
-            while result.startswith(' '):
-                result = result[1:]
+
+            while line.startswith(' '):
                 line = line[1:]
             line = line[2:]
-            return line, result
+
+            return line, name
 
     return False, None
 
