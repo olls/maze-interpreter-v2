@@ -123,11 +123,12 @@ def car_actions(maze, cars, functions, debug=False):
             except TypeError:
                 result = str(function(car.value, signal))
 
-            match = re.match(controls.regexes['direction'], result)
-            if match:
-                car.direction = result[1]
-            else:
-                car.value = str(result)
+            if not result == 'None':
+                match = re.match(controls.regexes['direction'], result)
+                if match:
+                    car.direction = result[1]
+                else:
+                    car.value = str(result)
 
     for car in removed:
         cars_after.remove(car)

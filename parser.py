@@ -78,13 +78,15 @@ def get_function(line):
         # Else keyword and statement.
         match = re.search(r' *[Ee][Ll][Ss][Ee] *', function)
         if not match:
-            funcs.error('Invalid function, no ELSE keyword.')
-        function = function[match.end():]
+            else_ = None
+        else:
 
-        match = re.search(controls.regexes['direction'], function)
-        else_ = match.group()
-        if not else_:
-            funcs.error('Invalid function, no THEN condition.')
+            function = function[match.end():]
+
+            match = re.search(controls.regexes['direction'], function)
+            else_ = match.group()
+            if not else_:
+                funcs.error('Invalid function, no ELSE statement.')
 
 
         if condition == '**':
@@ -167,7 +169,7 @@ def parse_file(file_):
                     cells[-1].append(cell)
 
         else:
-            print(line)
+
             # Function
             function = get_function(line)
             functions.update(function)
