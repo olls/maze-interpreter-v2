@@ -79,6 +79,4 @@ def main():
         time.sleep(1 / args.fps)
 
 if __name__ == '__main__':
-    # import cProfile
-    # cProfile.run('main()')
     main()
