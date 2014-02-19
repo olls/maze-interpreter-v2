@@ -12,7 +12,7 @@ class Car:
         self.value = value
         self.x = x
         self.y = y
-        self.direction = 'U'
+        self.direction = 'L'
 
 
 def get_args():
