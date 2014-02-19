@@ -1,27 +1,22 @@
 import re
 
+import controls
 
-CONTROLS = {
-    'wall': r'##|``',
-    'path': r'\.\.',
-    'splitter': r'<>',
-    'pause': r'[0-9]{2}',
-    'start': r'\^\^',
-    'hole': r'\(\)',
-    'out': r'>>',
-    'in': r'<<',
-    'one-use': r'--',
-    'direction': r'%[LRUDlrud]',
-    'signal': r'\*\*',
-    'function': r'[A-Za-z]{2}'
-}
+
+class Cell:
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
 
 
 def get_cell(line):
+    """
+        Returns the line minus the first cell it finds, and the cell.
+    """
 
     # Search for matches for each control.
     matches = []
-    for name, pattern in CONTROLS.items():
+    for name, pattern in controls.regexes.items():
         match = re.search(pattern, line)
         if match:
             matches.append((name, match))
@@ -34,7 +29,9 @@ def get_cell(line):
     match = min(matches, key=lambda k: k[1].start())
     line = line[match[1].end():]
 
-    return line, match[0]
+    value = match[1].group()
+
+    return line, Cell(match[0], value)
 
 
 def parse_file(file_):
@@ -58,6 +55,7 @@ def parse_file(file_):
 
 
 def main():
+
     with open('test.mz', 'r') as f:
         print(parse_file(f))
 
