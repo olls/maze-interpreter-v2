@@ -1,6 +1,6 @@
 import re
 import argparse
-import parse_input as pi
+import parse_maze as pi
 
 
 def get_args():
@@ -16,8 +16,8 @@ def main():
     args = get_args()
 
     maze = pi.parse_file(args.file)
-
     print(maze)
+    print('\n'.join(''.join(char+(' '*(10-len(char))) for char in line) for line in maze))
 
 
 if __name__ == '__main__':

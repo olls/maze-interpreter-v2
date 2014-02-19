@@ -2,33 +2,36 @@ import re
 
 
 CONTROLS = {
-    'wall': r'\#\#',
+    'wall': r'##',
     'path': r'\.\.',
-    'splitter': r'\<\>',
+    'splitter': r'<>',
     'pause': r'[0-9]{2}',
     'start': r'\^\^',
     'hole': r'\(\)',
-    'out': r'\>\>',
-    'in': r'\<\<',
-    'one-use': r'\-\-',
+    'out': r'>>',
+    'in': r'<<',
+    'one-use': r'--',
     'direction': r'%[LRUDlrud]',
     'signal': r'\*\*',
-    'function': r'[A-z]{2}'
+    'function': r'[A-Za-z]{2}'
 }
 
 
 def get_cell(line):
+    matches = []
+
     for name, pattern in CONTROLS.items():
-        match = re.match(' *(' + pattern + ')', line)
+        match = re.search('(' + pattern + ')', line)
         if match:
+            matches.append((name, match))
 
-            while line.startswith(' '):
-                line = line[1:]
-            line = line[2:]
+    if not matches:
+        return False, None
 
-            return line, name
+    match = min(matches, key=lambda k: k[1].start())
+    line = line[match[1].end():]
 
-    return False, None
+    return line, match[0]
 
 
 def parse_file(file_):
