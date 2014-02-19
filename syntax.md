@@ -6,8 +6,8 @@ Maze controls
 
 Symbol | Description
 :----: | :----------
-##     | Wall. Cars will not pass through these.
-'..'   | Path. Cars will follow these.
+## or `` | Wall. Cars will not pass through these.
+..     | Path. Cars will follow these.
 ' ' (space) | Separator. Put this after every command (except at end of line.)
 <>     | Splitter. Create a new thread.
 42     | Any two-digit numeral. Pause the car for this amount of 'ticks'.

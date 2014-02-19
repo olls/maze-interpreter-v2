@@ -48,7 +48,6 @@ def parse_file(file_):
             line = line[:line.index('//')]
 
         cells.append([])
-
         while line:
             line, cell = get_cell(line)
 
