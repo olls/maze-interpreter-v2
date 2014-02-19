@@ -40,12 +40,18 @@ def move_cars(maze, cars):
             directions = ['U', 'R', 'D', 'L']
 
             # Move current direction to front
-            directions.remove(car.direction)
+            try:
+                directions.remove(car.direction.lower())
+            except ValueError:
+                directions.remove(car.direction.upper())
             directions.insert(0, car.direction)
 
             # Move current backwards direction to back
             opp = opp_dir(car.direction)
-            directions.remove(opp)
+            try:
+                directions.remove(opp.lower())
+            except ValueError:
+                directions.remove(opp.upper())
             directions.append(opp)
 
             # Check all directions.

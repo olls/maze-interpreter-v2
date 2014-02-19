@@ -21,16 +21,20 @@ class Car:
 def get_args():
     parser = argparse.ArgumentParser(
         description='A Maze interpreter (http://esolangs.org/wiki/Maze)')
-    parser.add_argument('file', type=argparse.FileType('r'),
+    parser.add_argument('file', type=open,
         help='the file to run')
-    parser.add_argument('-o', '--out', action='store_false', type=argparse.FileType('r'),
-        help='the file to run')
+    parser.add_argument('-o', '--out', action='store_false',
+        help='supply to not output the maze.')
+    parser.add_argument('-f', '--fps', default=10, type=int,
+        help='the fps of the maze while being displayed.')
+
     args = parser.parse_args()
 
     return args
 
 
-def output(maze, cars):
+def output(maze, cars, out=True):
+    if not out: return
     out = ''
 
     for y, row in enumerate(maze):
@@ -63,18 +67,16 @@ def main():
     maze, functions = parser.parse_file(args.file)
     args.file.close()
 
-    FPS = 10
-
     cars = run.create_cars(maze, Car)
 
-    output(maze, cars)
-    time.sleep(1 / FPS)
+    output(maze, cars, args.out)
+    time.sleep(1 / args.fps)
     while cars:
         maze, cars = run.move_cars(maze, cars)
-        output(maze, cars)
+        output(maze, cars, args.out)
         maze, cars = run.car_actions(maze, cars, functions)
 
-        time.sleep(1 / FPS)
+        time.sleep(1 / args.fps)
 
 if __name__ == '__main__':
     # import cProfile

@@ -104,7 +104,6 @@ def get_function(line):
 
     else:
         # Assignment
-        print(function)
 
         match = re.search(r'[-+*/]?=', function)
         if not match:
