@@ -103,7 +103,7 @@ def car_actions(maze, cars, functions):
             removed.append(car)
 
         elif cell.name == 'out':
-            print(car.value)
+            print(car.value, end='')
 
         elif cell.name == 'in':
             car.value = input('>')
@@ -127,7 +127,7 @@ def car_actions(maze, cars, functions):
             if match:
                 car.direction = result[1]
             else:
-                car.value = str(int(float(result)))
+                car.value = str(result)
 
     for car in removed:
         cars_after.remove(car)

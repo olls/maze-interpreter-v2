@@ -70,13 +70,13 @@ def main():
     cars = run.create_cars(maze, Car)
 
     output(maze, cars, args.out)
-    time.sleep(1 / args.fps)
+    time.sleep((1 / args.fps) * args.out)
     while cars:
         maze, cars = run.move_cars(maze, cars)
         output(maze, cars, args.out)
         maze, cars = run.car_actions(maze, cars, functions)
 
-        time.sleep(1 / args.fps)
+        time.sleep((1 / args.fps) * args.out)
 
 if __name__ == '__main__':
     main()

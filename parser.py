@@ -110,22 +110,37 @@ def get_function(line):
             funcs.error('Invalid function, invalid operator.')
         operator = match.group()
 
-        match = re.search(r'[0-9]+', function)
-        try:
-            number = int(match.group())
-        except (ValueError, AttributeError):
-            funcs.error('Invalid function, invalid value for operator.')
-
         if operator == '=':
-            function = lambda value: number
-        elif operator == '-=':
-            function = lambda value: int(value) - number
-        elif operator == '+=':
-            function = lambda value: int(value) + number
-        elif operator == '*=':
-            function = lambda value: int(value) * number
-        elif operator == '/=':
-            function = lambda value: int(value) / number
+
+            quotes = r'(?<=")[^"]*(?=")|(?<=\')[^\']*(?=\')'
+            str_match = re.search(quotes, function)
+            int_match = re.search(r'[0-9]+', function)
+            if not str_match and not int_match:
+                funcs.error('Invalid function, invalid assignment value.')
+
+            assign = (str_match or int_match).group()
+
+            # try:
+            assign = '\n'.join(assign.split('\\n'))
+
+            function = lambda value: assign
+
+        else:
+
+            match = re.search(r'[0-9]+', function)
+            try:
+                number = int(match.group())
+            except (ValueError, AttributeError):
+                funcs.error('Invalid function, invalid value for operator.')
+
+            if operator == '-=':
+                function = lambda value: int(int(value) - number)
+            elif operator == '+=':
+                function = lambda value: int(int(value) + number)
+            elif operator == '*=':
+                function = lambda value: int(int(value) * number)
+            elif operator == '/=':
+                function = lambda value: int(int(value) / number)
 
     return {name: function}
 
