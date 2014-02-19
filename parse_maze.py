@@ -43,6 +43,10 @@ def parse_file(file_):
 
     cells = []
     for line in game:
+
+        if '//' in line:
+            line = line[:line.index('//')]
+
         cells.append([])
 
         while line:
