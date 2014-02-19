@@ -22,7 +22,7 @@ def get_cell(line):
     # Search for matches for each control.
     matches = []
     for name, pattern in CONTROLS.items():
-        match = re.search('(' + pattern + ')', line)
+        match = re.search(pattern, line)
         if match:
             matches.append((name, match))
 
