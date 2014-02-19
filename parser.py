@@ -167,6 +167,7 @@ def parse_file(file_):
                     cells[-1].append(cell)
 
         else:
+            print(line)
             # Function
             function = get_function(line)
             functions.update(function)
