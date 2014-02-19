@@ -16,7 +16,7 @@ regexes = {
 
 display = {
     'wall': '##',
-    'path': '..',
+    'path': '  ',
     'splitter': '<>',
     'pause': '{value}',
     'start': '^^',

@@ -23,6 +23,8 @@ def get_args():
         description='A Maze interpreter (http://esolangs.org/wiki/Maze)')
     parser.add_argument('file', type=argparse.FileType('r'),
         help='the file to run')
+    parser.add_argument('-o', '--out', action='store_false', type=argparse.FileType('r'),
+        help='the file to run')
     args = parser.parse_args()
 
     return args
@@ -49,7 +51,7 @@ def output(maze, cars):
             elif len(value) < 2:
                 value = ('0' * (2 - len(value))) + value
 
-            out += value
+            out += value + ' '
         out += '\n'
 
     print(out)
@@ -58,17 +60,23 @@ def output(maze, cars):
 def main():
     args = get_args()
 
-    maze = parser.parse_file(args.file)
+    maze, functions = parser.parse_file(args.file)
     args.file.close()
 
+    FPS = 10
+
     cars = run.create_cars(maze, Car)
+
     output(maze, cars)
+    time.sleep(1 / FPS)
     while cars:
         maze, cars = run.move_cars(maze, cars)
-        maze, cars = run.car_actions(maze, cars)
         output(maze, cars)
+        maze, cars = run.car_actions(maze, cars, functions)
 
-        time.sleep(.6)
+        time.sleep(1 / FPS)
 
 if __name__ == '__main__':
+    # import cProfile
+    # cProfile.run('main()')
     main()

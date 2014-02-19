@@ -1,3 +1,4 @@
+import re
 import copy
 
 import funcs
@@ -22,7 +23,7 @@ def move_cars(maze, cars):
         car = cars_after[i]
 
         if car.pause:
-            break
+            continue
 
         # Splitters do their own thing.
         if maze[car.y][car.x].name == 'splitter':
@@ -36,18 +37,23 @@ def move_cars(maze, cars):
 
         else:
 
-            # Check car's previous direction first.
-            d = car.direction
-            x, y = dir_to_pos(car, d)
-            can_move_dir = check_pos(maze, x, y)
+            directions = ['U', 'R', 'D', 'L']
+
+            # Move current direction to front
+            directions.remove(car.direction)
+            directions.insert(0, car.direction)
+
+            # Move current backwards direction to back
+            opp = opp_dir(car.direction)
+            directions.remove(opp)
+            directions.append(opp)
 
             # Check all directions.
-            if not can_move_dir:
-                for d in ['D', 'L', 'U', 'R']:
-                    x, y = dir_to_pos(car, d)
-                    can_move_dir = check_pos(maze, x, y)
+            for d in directions:
+                x, y = dir_to_pos(car, d)
+                can_move_dir = check_pos(maze, x, y)
 
-                    if can_move_dir: break
+                if can_move_dir: break
 
             # If car can move.
             if can_move_dir:
@@ -58,16 +64,22 @@ def move_cars(maze, cars):
     return maze_after, cars_after
 
 
-def car_actions(maze, cars):
+def car_actions(maze, cars, functions):
     maze_after = copy.deepcopy(maze)
     cars_after = copy.deepcopy(cars)
+
+    # Do signal first so it's enabled before any functions are run.
+    signal = False
+    for car in cars:
+        if maze[car.y][car.x].name == 'signal':
+            signal = True
 
     removed = []
     for car in cars_after:
 
         if car.pause:
             car.pause -= 1
-            break
+            continue
 
         cell = maze[car.y][car.x]
         cell_after = maze_after[car.y][car.x]
@@ -97,10 +109,19 @@ def car_actions(maze, cars):
         elif cell.name == 'direction':
             car.direction = cell.value[1]
 
-        elif cell.name == 'path':
-            pass
+        elif cell.name == 'function':
+            function = functions[cell.value]
 
+            try:
+                result = str(function(car.value))
+            except TypeError:
+                result = str(function(car.value, signal))
 
+            match = re.match(controls.regexes['direction'], result)
+            if match:
+                car.direction = result[1]
+            else:
+                car.value = str(int(float(result)))
 
     for car in removed:
         cars_after.remove(car)
@@ -109,17 +130,17 @@ def car_actions(maze, cars):
 
 
 def dir_to_pos(car, direction):
-    if direction in 'Dd':
-        x = car.x
-        y = car.y + 1
-    elif direction in 'Ll':
-        x = car.x - 1
-        y = car.y
-    elif direction in 'Uu':
+    if direction in 'Uu':
         x = car.x
         y = car.y - 1
     elif direction in 'Rr':
         x = car.x + 1
+        y = car.y
+    elif direction in 'Dd':
+        x = car.x
+        y = car.y + 1
+    elif direction in 'Ll':
+        x = car.x - 1
         y = car.y
 
     return x, y
@@ -127,3 +148,14 @@ def dir_to_pos(car, direction):
 
 def check_pos(maze, x, y):
     return not maze[y][x].name == 'wall'
+
+
+def opp_dir(direction):
+    if direction in 'Uu':
+        return 'D'
+    elif direction in 'Rr':
+        return 'L'
+    elif direction in 'Dd':
+        return 'U'
+    elif direction in 'Ll':
+        return 'R'
