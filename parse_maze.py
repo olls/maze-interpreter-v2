@@ -18,8 +18,9 @@ CONTROLS = {
 
 
 def get_cell(line):
-    matches = []
 
+    # Search for matches for each control.
+    matches = []
     for name, pattern in CONTROLS.items():
         match = re.search('(' + pattern + ')', line)
         if match:
@@ -28,6 +29,8 @@ def get_cell(line):
     if not matches:
         return False, None
 
+    # Use control match closest to the beginning of the line, remove everything
+    #    to the end of the match from the line.
     match = min(matches, key=lambda k: k[1].start())
     line = line[match[1].end():]
 
@@ -47,6 +50,7 @@ def parse_file(file_):
             cells[-1].append(cell)
 
     return cells
+
 
 def main():
     with open('test.mz', 'r') as f:
