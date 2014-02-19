@@ -70,7 +70,7 @@ def move_cars(maze, cars):
     return maze_after, cars_after
 
 
-def car_actions(maze, cars, functions):
+def car_actions(maze, cars, functions, debug=False):
     maze_after = copy.deepcopy(maze)
     cars_after = copy.deepcopy(cars)
 
@@ -103,10 +103,10 @@ def car_actions(maze, cars, functions):
             removed.append(car)
 
         elif cell.name == 'out':
-            print(car.value, end='')
+            print(car.value, end='\n' * debug)
 
         elif cell.name == 'in':
-            car.value = input('>')
+            car.value = input('> ')
 
         elif cell.name == 'one-use':
             cell_after.name = 'wall'

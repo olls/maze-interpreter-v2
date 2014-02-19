@@ -23,8 +23,8 @@ def get_args():
         description='A Maze interpreter (http://esolangs.org/wiki/Maze)')
     parser.add_argument('file', type=open,
         help='the file to run')
-    parser.add_argument('-o', '--out', action='store_false',
-        help='supply to not output the maze.')
+    parser.add_argument('-d', '--debug', action='store_true',
+        help='display the maze during interpretation.')
     parser.add_argument('-f', '--fps', default=10, type=int,
         help='the fps of the maze while being displayed.')
 
@@ -69,14 +69,16 @@ def main():
 
     cars = run.create_cars(maze, Car)
 
-    output(maze, cars, args.out)
-    time.sleep((1 / args.fps) * args.out)
+    output(maze, cars, args.debug)
+    time.sleep((1 / args.fps) * args.debug)
     while cars:
         maze, cars = run.move_cars(maze, cars)
-        output(maze, cars, args.out)
-        maze, cars = run.car_actions(maze, cars, functions)
+        output(maze, cars, args.debug)
+        maze, cars = run.car_actions(maze, cars, functions, debug=args.debug)
 
-        time.sleep((1 / args.fps) * args.out)
+        time.sleep((1 / args.fps) * args.debug)
+
+    print('\n' * (not args.debug), end='')
 
 if __name__ == '__main__':
     main()
