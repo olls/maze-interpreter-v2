@@ -1,7 +1,7 @@
 Maze Interpreter v2
 ===================
 
-My second attempt at a Maze interpreter (http://esolangs.org/wiki/Maze)
+My second attempt at a Maze interpreter. http://esolangs.org/wiki/Maze
 
 All the examples on the Esolangs wiki page work. I'm not entirely sure if the Turing complete example works correctly, because I'm not exactly sure what it is meant to do, but it doesn't enter the loop properly.
 
