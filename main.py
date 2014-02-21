@@ -22,7 +22,7 @@ def get_args():
     parser = argparse.ArgumentParser(
         description='A Maze interpreter (http://esolangs.org/wiki/Maze)')
     parser.add_argument('file', type=open,
-        help='the file to run')
+        help='the program to run')
     parser.add_argument('-d', '--debug', action='store_true',
         help='display the maze during interpretation.')
     parser.add_argument('-f', '--fps', default=10, type=int,
