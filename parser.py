@@ -36,24 +36,32 @@ def get_cell(line):
 
 
 def get_function(line):
+    """
+        Parses and returns a function on the given line.
+    """
+
+    # Get function name from before the function assignment operator.
     match = re.search(r'[A-Za-z]{2}', line.split('->')[0])
     if not match:
         funcs.error('Invalid function, invalid name.')
     name = match.group()
 
+    # Make sure the function has an function assignment operator.
     match = re.search(r'[A-Za-z]{2} *-> *', line)
     if not match:
         funcs.error('Invalid function.')
     function = line[match.end():]
 
-    if function.lower().startswith('if'):
-        # Conditional
+    # Function type: conditional or assignment.
+    if function.lower().startswith('if'): # Conditional
 
+        # Get Condition
         match = re.search(r'([<>]=?)|==|\*\*', function)
         if not match:
             funcs.error('Invalid function, invalid condition.')
         condition = match.group()
 
+        # Get condition value
         if not condition == '**':
             match = re.search(r'[0-9]+', function)
             try:
@@ -61,9 +69,8 @@ def get_function(line):
             except (ValueError, AttributeError):
                 funcs.error('Invalid function, invalid value for condition.')
 
-
-        # Then keyword and statement.
-        match = re.search(r' *[Tt][Hh][Ee][Nn] *', function)
+        # Get 'then' keyword and statement.
+        match = re.search(r' *then *', function.lower())
         if not match:
             funcs.error('Invalid function, no THEN keyword.')
         then_keywd = match.group()
@@ -74,13 +81,11 @@ def get_function(line):
             funcs.error('Invalid function, no THEN statement.')
         then = match.group()
 
-
-        # Else keyword and statement.
-        match = re.search(r' *[Ee][Ll][Ss][Ee] *', function)
+        # Get 'else' keyword and statement.
+        match = re.search(r' *else *', function.lower())
         if not match:
             else_ = None
         else:
-
             function = function[match.end():]
 
             match = re.search(controls.regexes['direction'], function)
@@ -88,32 +93,31 @@ def get_function(line):
             if not else_:
                 funcs.error('Invalid function, no ELSE statement.')
 
-
+        # Create lambda representing the function.
         if condition == '**':
             function = lambda value, signal: then if signal else else_
-        else:
+        elif condition == '<=':
+            function = lambda value: then if int(value) <= number else else_
+        elif condition == '==':
+            function = lambda value: then if int(value) == number else else_
+        elif condition == '>=':
+            function = lambda value: then if int(value) >= number else else_
+        elif condition == '>':
+            function = lambda value: then if int(value) > number else else_
+        elif condition == '<':
+            function = lambda value: then if int(value) < number else else_
 
-            if condition == '<=':
-                function = lambda value: then if int(value) <= number else else_
-            elif condition == '==':
-                function = lambda value: then if int(value) == number else else_
-            elif condition == '>=':
-                function = lambda value: then if int(value) >= number else else_
-            elif condition == '>':
-                function = lambda value: then if int(value) > number else else_
-            elif condition == '<':
-                function = lambda value: then if int(value) < number else else_
+    else: # Assignment
 
-    else:
-        # Assignment
-
+        # Make sure it has an assignment operator.
         match = re.search(r'[-+*/]?=', function)
         if not match:
             funcs.error('Invalid function, invalid operator.')
         operator = match.group()
 
+        # Create lambdas representing the assignment.
         if operator == '=':
-
+            # Find a string or an int
             quotes = r'(?<=")[^"]*(?=")|(?<=\')[^\']*(?=\')'
             str_match = re.search(quotes, function)
             int_match = re.search(r'[0-9]+', function)
@@ -122,13 +126,13 @@ def get_function(line):
 
             assign = (str_match or int_match).group()
 
-            # try:
+            # Fix new lines in string assignment
             assign = '\n'.join(assign.split('\\n'))
 
             function = lambda value: assign
 
         else:
-
+            # Find an int
             match = re.search(r'[0-9]+', function)
             try:
                 number = int(match.group())
@@ -148,7 +152,6 @@ def get_function(line):
 
 
 def parse_file(file_):
-
     game = file_.read().splitlines()
 
     cells = []
@@ -156,20 +159,18 @@ def parse_file(file_):
     for line in game:
 
         if '//' in line:
+            # Remove any comment
             line = line[:line.index('//')]
-
         if '->' not in line:
-            # Maze
-
+            # A part of the maze, not a function
             cells.append([])
             while line:
+                # Keep taking a cell off the beginning of the line, until it's empty.
                 line, cell = get_cell(line)
 
                 if cell:
                     cells[-1].append(cell)
-
         else:
-
             # Function
             function = get_function(line)
             functions.update(function)
@@ -178,7 +179,6 @@ def parse_file(file_):
 
 
 def main():
-
     with open('test.mz', 'r') as f:
         print(parse_file(f))
 

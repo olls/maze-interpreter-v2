@@ -29,7 +29,6 @@ def get_args():
         help='the fps of the maze while being displayed.')
 
     args = parser.parse_args()
-
     return args
 
 
@@ -79,6 +78,7 @@ def main():
         time.sleep((1 / args.fps) * args.debug)
 
     print('\n' * (not args.debug), end='')
+
 
 if __name__ == '__main__':
     main()

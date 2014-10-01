@@ -6,6 +6,9 @@ import controls
 
 
 def create_cars(maze, Car):
+    """
+        Goes through maze and creates a car for any start cells.
+    """
     cars = []
     for y, row in enumerate(maze):
         for x, cell in enumerate(row):
@@ -16,12 +19,16 @@ def create_cars(maze, Car):
 
 
 def move_cars(maze, cars):
+    """
+        Moves all the cars one frame.
+    """
     maze_after = copy.deepcopy(maze)
     cars_after = copy.deepcopy(cars)
 
     for i in range(len(cars)):
         car = cars_after[i]
 
+        # Don't move a car if it is paused.
         if car.pause:
             continue
 
@@ -71,6 +78,9 @@ def move_cars(maze, cars):
 
 
 def car_actions(maze, cars, functions, debug=False):
+    """
+        Funs any functions a car is on.
+    """
     maze_after = copy.deepcopy(maze)
     cars_after = copy.deepcopy(cars)
 
@@ -83,6 +93,7 @@ def car_actions(maze, cars, functions, debug=False):
     removed = []
     for car in cars_after:
 
+        # Count down any paused cars.
         if car.pause:
             car.pause -= 1
             continue
@@ -90,6 +101,7 @@ def car_actions(maze, cars, functions, debug=False):
         cell = maze[car.y][car.x]
         cell_after = maze_after[car.y][car.x]
 
+        # Actions:
         if cell.name == 'wall':
             funcs.error('Car got in wall.')
 

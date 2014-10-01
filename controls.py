@@ -1,4 +1,5 @@
 
+
 regexes = {
     'wall': r'##|``',
     'path': r'\.\.',
@@ -13,6 +14,7 @@ regexes = {
     'signal': r'\*\*',
     'function': r'[A-Za-z]{2}'
 }
+
 
 display = {
     'wall': '##',

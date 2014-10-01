@@ -12,17 +12,15 @@ Usage
 
 Depends on python3.
 
-```
-python3 main.py [-h] [-d] [-f FPS] file
+    python3 main.py [-h] [-d] [-f FPS] file
 
-positional arguments:
-  file               the program to run
+    positional arguments:
+      file               the program to run
 
-optional arguments:
-  -h, --help         show this help message and exit
-  -d, --debug        display the maze during interpretation.
-  -f FPS, --fps FPS  the fps of the maze while being displayed.
-```
+    optional arguments:
+      -h, --help         show this help message and exit
+      -d, --debug        display the maze during interpretation.
+      -f FPS, --fps FPS  the fps of the maze while being displayed.
 
 Syntax
 ------
@@ -32,6 +30,8 @@ The parsing is not perfect, but it seems to work well enough. It allows a much s
 Behavior
 --------
 
-The program currently generates an error and exits if two cars are in the same cell, this can be easily changed, but it is not clear from the wiki what is meant to happen.
+The specification on the Esolangs wiki is a bit ambiguous in places, so I have had to make some assumptions:
 
-The cars will attempt to move in the direction they were last travelling in first. The opposite direction to the direction they were last travelling in is always tried last. Otherwise directions are tried in this order: U, R, D, L. 
+ - The program currently generates an error and exits if two cars are in the same cell, this can be easily changed, but it is not clear from the wiki what is meant to happen.
+ - The cars will attempt to move in the direction they were last travelling in first. The opposite direction to the direction they were last travelling in is always tried last. Otherwise directions are tried in this order: U, R, D, L.
+ - Many start positions are allowed in the map, this is disallowed in the specification, but I included it because it allows more freedom in creating programs. Although it can be fun to make programs just one start as well.
