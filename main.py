@@ -39,8 +39,10 @@ def output(maze, cars, out=True):
     for y, row in enumerate(maze):
         for x, cell in enumerate(row):
 
-            # Get value
+            # Get value of cell without car.
             value = controls.display[cell.name].format(value=cell.value)
+            
+            # Should only be one car in cell, but if not print last one.
             car = [car for car in cars if car.x == x and  car.y == y]
             if car:
                 # Replace value of cell with value of car if there is one.

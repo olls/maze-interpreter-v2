@@ -146,6 +146,7 @@ def car_actions(maze, cars, functions, debug=False):
                 else:
                     car.value = str(result)
 
+    # Remove any deleted cars.
     for car in removed:
         cars_after.remove(car)
 
