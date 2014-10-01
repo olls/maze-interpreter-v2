@@ -74,6 +74,10 @@ def move_cars(maze, cars):
                 car.y = y
                 car.direction = d
 
+    # Error if any cars share a cell.
+    if len(cars) is not len(set((car.x, car.y) for car in cars)):
+        funcs.error('Multiple cars in same cell.')
+
     return maze_after, cars_after
 
 

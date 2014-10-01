@@ -43,8 +43,7 @@ def output(maze, cars, out=True):
             value = controls.display[cell.name].format(value=cell.value)
             car = [car for car in cars if car.x == x and  car.y == y]
             if car:
-                if not len(car) == 1:
-                    funcs.error('Multiple cars in same cell.')
+                # Replace value of cell with value of car if there is one.
                 value = car[-1].value
 
             # Two characters wide.
