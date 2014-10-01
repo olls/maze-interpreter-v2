@@ -12,7 +12,9 @@ Usage
 
 Depends on python3.
 
-    python3 main.py [-h] [-d] [-f FPS] file
+    usage: main.py [-h] [-d] [-c] [-f FPS] file
+
+    A Maze interpreter (http://esolangs.org/wiki/Maze)
 
     positional arguments:
       file               the program to run
@@ -20,7 +22,8 @@ Depends on python3.
     optional arguments:
       -h, --help         show this help message and exit
       -d, --debug        display the maze during interpretation.
-      -f FPS, --fps FPS  the fps of the maze while being displayed.
+      -c, --no-colors    shows the maze without color when in debug mode.
+      -f FPS, --fps FPS  the fps of the maze when in debug mode.
 
 Syntax
 ------
