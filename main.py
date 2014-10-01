@@ -7,6 +7,7 @@ import funcs
 import controls
 import parser
 import run
+from colors import *
 
 
 class Car:
@@ -25,14 +26,16 @@ def get_args():
         help='the program to run')
     parser.add_argument('-d', '--debug', action='store_true',
         help='display the maze during interpretation.')
+    parser.add_argument('-c', '--no-colors', action='store_false',
+        help='shows the maze without color when in debug mode.')
     parser.add_argument('-f', '--fps', default=10, type=int,
-        help='the fps of the maze while being displayed.')
+        help='the fps of the maze when in debug mode.')
 
     args = parser.parse_args()
     return args
 
 
-def output(maze, cars, out=True):
+def output(maze, cars, out=True, colors=True):
     if not out: return
     out = ''
 
@@ -41,12 +44,14 @@ def output(maze, cars, out=True):
 
             # Get value of cell without car.
             value = controls.display[cell.name].format(value=cell.value)
+            color = controls.colors[cell.name]
             
             # Should only be one car in cell, but if not print last one.
             car = [car for car in cars if car.x == x and  car.y == y]
             if car:
                 # Replace value of cell with value of car if there is one.
                 value = car[-1].value
+                color = {'bg': color['bg'], 'fg': BLACK, 'style': None}
 
             # Two characters wide.
             value = str(value)
@@ -55,7 +60,7 @@ def output(maze, cars, out=True):
             elif len(value) < 2:
                 value = ('0' * (2 - len(value))) + value
 
-            out += value + ' '
+            out += colorStr(value, **color) if colors else value
         out += '\n'
 
     print(out)
@@ -69,11 +74,11 @@ def main():
 
     cars = run.create_cars(maze, Car)
 
-    output(maze, cars, args.debug)
+    output(maze, cars, args.debug, args.no_colors)
     time.sleep((1 / args.fps) * args.debug)
     while cars:
         maze, cars = run.move_cars(maze, cars)
-        output(maze, cars, args.debug)
+        output(maze, cars, args.debug, args.no_colors)
         maze, cars = run.car_actions(maze, cars, functions, debug=args.debug)
 
         time.sleep((1 / args.fps) * args.debug)
