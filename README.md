@@ -7,7 +7,7 @@ All the examples on the Esolangs wiki page work. I'm not entirely sure if the Tu
 
 Please create an issue or pull request if you find a problem :)
 
-![A Fibonacci program running with the interpreter.](http://misc.oliverfaircliff.com/maze-interpreter.png)
+![A Fibonacci program running with the interpreter.](http://oliverfaircliff.com/~olls/readme-imgs/maze-interpreter.png)
 
 Usage
 -----
