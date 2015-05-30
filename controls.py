@@ -13,7 +13,7 @@ regexes = {
     'one-use': r'--',
     'direction': r'%[LRUDlrud]',
     'signal': r'\*\*',
-    'function': r'[A-Za-z]{2}'
+    'function': r'[A-Za-z][A-Za-z0-9]'
 }
 
 

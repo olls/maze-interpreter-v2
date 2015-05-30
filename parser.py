@@ -41,13 +41,13 @@ def get_function(line):
     """
 
     # Get function name from before the function assignment operator.
-    match = re.search(r'[A-Za-z]{2}', line.split('->')[0])
+    match = re.search(controls.regexes['function'], line.split('->')[0])
     if not match:
         funcs.error('Invalid function, invalid name.')
     name = match.group()
 
     # Make sure the function has an function assignment operator.
-    match = re.search(r'[A-Za-z]{2} *-> *', line)
+    match = re.search(controls.regexes['function'] + r' *-> *', line)
     if not match:
         funcs.error('Invalid function.')
     function = line[match.end():]
