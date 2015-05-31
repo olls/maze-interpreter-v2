@@ -45,7 +45,7 @@ def output(maze, cars, out=True, colors=True):
             # Get value of cell without car.
             value = controls.display[cell.name].format(value=cell.value)
             color = controls.colors[cell.name]
-            
+
             # Should only be one car in cell, but if not print last one.
             car = [car for car in cars if car.x == x and  car.y == y]
             if car:
