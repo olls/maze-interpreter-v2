@@ -83,7 +83,7 @@ def move_cars(maze, cars):
 
 def car_actions(maze, cars, functions, debug=False):
     """
-        Funs any functions a car is on.
+        Runs any functions a car is on.
     """
     maze_after = copy.deepcopy(maze)
     cars_after = copy.deepcopy(cars)
