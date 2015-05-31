@@ -44,7 +44,7 @@ def move_cars(maze, cars):
 
         else:
 
-            directions = ['U', 'R', 'D', 'L']
+            directions = ['U', 'R', 'D', 'L', 'N']
 
             # Move current direction to front
             try:
@@ -54,12 +54,15 @@ def move_cars(maze, cars):
             directions.insert(0, car.direction)
 
             # Move current backwards direction to back
-            opp = opp_dir(car.direction)
-            try:
-                directions.remove(opp.lower())
-            except ValueError:
-                directions.remove(opp.upper())
-            directions.append(opp)
+            if not car.direction in 'Nn':
+                opp = opp_dir(car.direction)
+                try:
+                    directions.remove(opp.lower())
+                except ValueError:
+                    directions.remove(opp.upper())
+                directions.append(opp)
+
+            print(directions)
 
             # Check all directions.
             for d in directions:
@@ -166,6 +169,9 @@ def dir_to_pos(car, direction):
     elif direction in 'Ll':
         x = car.x - 1
         y = car.y
+    elif direction in 'Nn':
+        x = car.x
+        y = car.y
 
     return x, y
 
@@ -183,3 +189,5 @@ def opp_dir(direction):
         return 'U'
     elif direction in 'Ll':
         return 'R'
+    elif direction in 'Nn':
+        return 'N'
