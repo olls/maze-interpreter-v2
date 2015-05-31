@@ -75,13 +75,13 @@ def main():
     cars = run.create_cars(maze, Car)
 
     output(maze, cars, args.debug, args.no_colors)
-    time.sleep((1 / args.fps) * args.debug)
     while cars:
+        if args.debug:
+            time.sleep((1 / args.fps))
+
         maze, cars = run.move_cars(maze, cars)
         output(maze, cars, args.debug, args.no_colors)
         maze, cars = run.car_actions(maze, cars, functions, debug=args.debug)
-
-        time.sleep((1 / args.fps) * args.debug)
 
     print('\n' * (not args.debug), end='')
 
