@@ -11,7 +11,7 @@ regexes = {
     'out': r'>>',
     'in': r'<<',
     'one-use': r'--',
-    'direction': r'%[LRUDNlrudn]',
+    'direction': r'%[LRUDlrud]',
     'signal': r'(?<=\*)[\*A-Za-z0-9]',
     'function': r'[A-Za-z][A-Za-z0-9]'
 }
