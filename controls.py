@@ -12,7 +12,7 @@ regexes = {
     'in': r'<<',
     'one-use': r'--',
     'direction': r'%[LRUDlrud]',
-    'signal': r'\*\*',
+    'signal': r'(?<=\*)[\*A-Za-z0-9]',
     'function': r'[A-Za-z][A-Za-z0-9]'
 }
 
@@ -28,7 +28,7 @@ display = {
     'in': '<<',
     'one-use': '--',
     'direction': '{value}',
-    'signal': '**',
+    'signal': '*{value}',
     'function': '{value}'
 }
 

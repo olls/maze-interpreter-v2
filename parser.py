@@ -56,13 +56,19 @@ def get_function(line):
     if function.lower().startswith('if'): # Conditional
 
         # Get Condition
-        match = re.search(r'([<>]=?)|==|\*\*', function)
+        match = re.search(r'([<>]=?)|==|(\*(?=[\*A-Za-z0-9]))', function)
         if not match:
             funcs.error('Invalid function, invalid condition.')
         condition = match.group()
 
         # Get condition value
-        if not condition == '**':
+        if condition == '*':
+            match = re.search(controls.regexes['signal'], function)
+            try:
+                number = match.group()
+            except (ValueError, AttributeError):
+                funcs.error('Invalid function, invalid value for signal.')
+        else:
             match = re.search(r'[0-9]+', function)
             try:
                 number = int(match.group())
@@ -94,8 +100,12 @@ def get_function(line):
                 funcs.error('Invalid function, no ELSE statement.')
 
         # Create lambda representing the function.
-        if condition == '**':
-            function = lambda value, signal: then if signal else else_
+        if condition == '*':
+            if number == '*':
+                function = lambda value, signal: then if signal else else_
+            else:
+                function = lambda value, signal: then if '*' in signal or number in signal else else_
+
         elif condition == '<=':
             function = lambda value: then if int(value) <= number else else_
         elif condition == '==':

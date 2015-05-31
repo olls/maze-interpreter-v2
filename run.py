@@ -89,10 +89,10 @@ def car_actions(maze, cars, functions, debug=False):
     cars_after = copy.deepcopy(cars)
 
     # Do signal first so it's enabled before any functions are run.
-    signal = False
+    signal = []
     for car in cars:
         if maze[car.y][car.x].name == 'signal':
-            signal = True
+            signal.append(maze[car.y][car.x].value)
 
     removed = []
     for car in cars_after:
