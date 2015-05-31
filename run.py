@@ -44,6 +44,9 @@ def move_cars(maze, cars):
 
         else:
 
+            if car.direction in 'Nn':
+                continue
+
             directions = ['U', 'R', 'D', 'L']
 
             # Move current direction to front
@@ -119,7 +122,7 @@ def car_actions(maze, cars, functions, debug=False):
             removed.append(car)
 
         elif cell.name == 'out':
-            print(car.value, end='\n' * debug)
+            print(car.value)#, end='\n' * debug)
 
         elif cell.name == 'in':
             car.value = input('> ')

@@ -4,4 +4,4 @@
 ## ** 10 -- ## // n = (t / 2) + 2
 ## ## ## ##
 
-AA-> IF ** THEN %U ELSE %R
+AA-> IF *A THEN %U ELSE %R

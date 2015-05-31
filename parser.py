@@ -180,6 +180,9 @@ def parse_file(file_):
 
                 if cell:
                     cells[-1].append(cell)
+
+            if not cells[-1]:
+                cells = cells[:-1]
         else:
             # Function
             function = get_function(line)
