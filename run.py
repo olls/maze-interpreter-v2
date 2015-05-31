@@ -62,8 +62,6 @@ def move_cars(maze, cars):
                     directions.remove(opp.upper())
                 directions.append(opp)
 
-            print(directions)
-
             # Check all directions.
             for d in directions:
                 x, y = dir_to_pos(car, d)
