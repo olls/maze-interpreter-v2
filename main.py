@@ -35,8 +35,7 @@ def get_args():
     return args
 
 
-def output(maze, cars, out=True, colors=True):
-    if not out: return
+def output(maze, cars, colors=True):
     out = ''
 
     for y, row in enumerate(maze):
@@ -74,16 +73,20 @@ def main():
 
     cars = run.create_cars(maze, Car)
 
-    output(maze, cars, args.debug, args.no_colors)
+    if args.debug:
+        output(maze, cars, args.no_colors)
+
     while cars:
+        maze, cars = run.move_cars(maze, cars)
+
         if args.debug:
             time.sleep(1 / args.fps)
+            output(maze, cars, args.no_colors)
 
-        maze, cars = run.move_cars(maze, cars)
-        output(maze, cars, args.debug, args.no_colors)
         maze, cars = run.car_actions(maze, cars, functions, debug=args.debug)
 
-    print('\n' * (not args.debug), end='')
+    if not args.debug:
+        print('')
 
 
 if __name__ == '__main__':
