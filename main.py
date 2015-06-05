@@ -12,7 +12,7 @@ from colors import *
 
 CLS = '\033[2J'
 CLS_END = '\033[0J'
-CLS_END_LN = '\033[0K'
+CLS_END_LN = '\033[0K\n'
 REDRAW = '\033[0;0f'
 HIDE_CUR = '\033[?25l'
 SHOW_CUR = '\033[?25h'
@@ -72,8 +72,8 @@ def output(maze, cars, logs, colors=True):
                 value = ('0' * (2 - len(value))) + value
 
             out += colorStr(value, **color) if colors else value
-        out += CLS_END_LN + '\n'
-    out += (CLS_END_LN + '\n').join(logs[-10:])
+        out += CLS_END_LN
+    out += CLS_END_LN.join(logs[-10:])
 
     print(REDRAW + out + CLS_END)
 
