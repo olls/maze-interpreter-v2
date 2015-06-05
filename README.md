@@ -5,6 +5,8 @@ My second attempt at a Maze interpreter: http://esolangs.org/wiki/Maze
 
 All the examples on the Esolangs wiki page work. I'm not entirely sure if the Turing complete example works correctly, because I'm not exactly sure what it is meant to do, but it doesn't enter the loop properly. See some examples in the [programs](https://github.com/olls/maze-interpreter-v2/tree/master/programs) directory.
 
+You can get the sublime syntax highlighting package from `[sublime-maze](https://github.com/olls/sublime-maze)`.
+
 Please create an issue or pull request if you find a problem :)
 
 ![A Fibonacci program running with the interpreter.](http://oliverfaircliff.com/~olls/readme-imgs/maze-interpreter/fibonacci.png)
