@@ -47,7 +47,7 @@ def output(maze, cars, out=True, colors=True):
             color = controls.colors[cell.name]
 
             # Should only be one car in cell, but if not print last one.
-            car = [car for car in cars if car.x == x and  car.y == y]
+            car = [car for car in cars if car.x == x and car.y == y]
             if car:
                 # Replace value of cell with value of car if there is one.
                 value = car[-1].value
