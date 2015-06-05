@@ -46,8 +46,8 @@ Signals can also be in the form `*X`, where `X` is a letter of number and the na
 `%N` in a function will keep the car in the same cell for the next frame.
 
 
-Behavior
---------
+Behaviour
+---------
 
 The specification on the Esolangs wiki is a bit ambiguous in places, so I have had to make some assumptions:
 
