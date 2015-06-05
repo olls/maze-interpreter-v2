@@ -114,7 +114,7 @@ def get_function(line):
             function = lambda value: then if int(value) <= number else else_
         elif condition == '==':
             if string:
-                function = lambda value: then if str(value) == string else else_
+                function = lambda value: then if repr(str(value))[1:-1] == string else else_
             else:
                 function = lambda value: then if int(value) == number else else_
         elif condition == '>=':
