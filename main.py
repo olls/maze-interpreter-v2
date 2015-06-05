@@ -10,6 +10,14 @@ import run
 from colors import *
 
 
+CLS = '\033[2J'
+CLS_END = '\033[0J'
+CLS_END_LN = '\033[0K'
+REDRAW = '\033[0;0f'
+HIDE_CUR = '\033[?25l'
+SHOW_CUR = '\033[?25h'
+
+
 class Car:
     def __init__(self, value, x, y):
         self.value = value
@@ -60,9 +68,9 @@ def output(maze, cars, colors=True):
                 value = ('0' * (2 - len(value))) + value
 
             out += colorStr(value, **color) if colors else value
-        out += '\n'
+        out += CLS_END_LN + '\n'
 
-    print(out)
+    print(REDRAW + out + CLS_END)
 
 
 def main():
@@ -74,19 +82,23 @@ def main():
     cars = run.create_cars(maze, Car)
 
     if args.debug:
+        print(HIDE_CUR)
+        print(CLS)
         output(maze, cars, args.no_colors)
 
-    while cars:
-        maze, cars = run.move_cars(maze, cars)
+    try:
+        while cars:
+            maze, cars = run.move_cars(maze, cars)
 
-        if args.debug:
-            time.sleep(1 / args.fps)
-            output(maze, cars, args.no_colors)
+            if args.debug:
+                time.sleep(1 / args.fps)
+                output(maze, cars, args.no_colors)
 
-        maze, cars = run.car_actions(maze, cars, functions, debug=args.debug)
+            maze, cars = run.car_actions(maze, cars, functions, debug=args.debug)
+    finally:
+        if args.debug: print(SHOW_CUR)
 
-    if not args.debug:
-        print('')
+    if not args.debug: print('')
 
 
 if __name__ == '__main__':
