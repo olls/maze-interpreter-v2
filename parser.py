@@ -69,7 +69,7 @@ def get_function(line):
             except (ValueError, AttributeError):
                 funcs.error('Invalid function, invalid value for signal.')
         else:
-            match = re.search(r'[0-9]+', function)
+            match = re.search(r'-?[0-9]+', function)
             try:
                 number = int(match.group())
             except (ValueError, AttributeError):
@@ -130,7 +130,7 @@ def get_function(line):
             # Find a string or an int
             quotes = r'(?<=")[^"]*(?=")|(?<=\')[^\']*(?=\')'
             str_match = re.search(quotes, function)
-            int_match = re.search(r'[0-9]+', function)
+            int_match = re.search(r'-?[0-9]+', function)
             if not str_match and not int_match:
                 funcs.error('Invalid function, invalid assignment value.')
 
@@ -143,7 +143,7 @@ def get_function(line):
 
         else:
             # Find an int
-            match = re.search(r'[0-9]+', function)
+            match = re.search(r'-?[0-9]+', function)
             try:
                 number = int(match.group())
             except (ValueError, AttributeError):
