@@ -98,11 +98,10 @@ def main():
 
             maze, cars, new_logs = run.car_actions(maze, cars, functions, debug=args.debug)
 
-            if len(new_logs):
-                if args.debug:
-                    logs += new_logs
-                else:
-                    print('\n'.join(new_logs))
+            if args.debug:
+                logs += new_logs
+            else:
+                print('\n'.join(new_logs) if new_logs)
 
     finally:
         if args.debug: print(SHOW_CUR)
