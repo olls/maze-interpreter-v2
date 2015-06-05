@@ -42,5 +42,6 @@
 ## %U %U %U %U %U %U %U %U %U %U %U %U %U %U %U %U %U %U %U %U %U %U %U ## ()
 ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 
-AA-> IF ** THEN %L ELSE %R
-AB-> +=1
+
+AA -> IF ** THEN %L ELSE %R
+AB -> += 1

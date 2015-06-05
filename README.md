@@ -36,9 +36,18 @@ Depends on python3.
 
 The parsing is not perfect, but it seems to work well enough. It allows a much simpler syntax than that on the Esolangs wiki, although that works fine too. The commas are not needed between the commands, but you can add as much white space as you want, it will be ignored. Because the white space is ignored, the examples on the wiki need the leading white space converted to walls to align them properly. You can also use a ``` `` ``` (double tick) as a wall, to reduce the heaviness of the solid wall areas.
 
+### Extended Syntax
+I have extended some of the syntax from the Esolangs Wiki to make the language a little more usable. Here is a list of the features:
 
-Behavior
---------
+#### Named signals:
+Signals can also be in the form `*X`, where `X` is a letter of number and the name of the signal. The `**` signal will trigger and detect all named signals, whereas named signals will only detect/trigger signals with the same name.
+
+#### Null Direction
+`%N` in a function will keep the car in the same cell for the next frame.
+
+
+Behaviour
+---------
 
 The specification on the Esolangs wiki is a bit ambiguous in places, so I have had to make some assumptions:
 
