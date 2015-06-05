@@ -52,13 +52,15 @@ patterns:
 
 - comment: Assignment function
   name: keyword.other
-  match: "([A-Za-z][A-Za-z0-9]) *-> *([-+*/]?=) *(([0-9]+)|(\"[^\"]*\")|('[^']*'))"
+  match: "([A-Za-z][A-Za-z0-9]) *-> *(([-+*/]=) *([0-9]+)|(=) *(([0-9]+)|(\"[^\"]*\")|('[^']*')))"
   captures:
     '1': {name: entity.name.function}
-    '2': {name: keyword.operator}
+    '3': {name: keyword.operator}
+    '5': {name: keyword.operator}
     '4': {name: constant.numeric}
-    '5': {name: string.quoted.double}
-    '6': {name: string.quoted.single}
+    '7': {name: constant.numeric}
+    '8': {name: string.quoted.double}
+    '9': {name: string.quoted.single}
 
 - comment: Equality Function
   name: keyword.other
@@ -69,15 +71,11 @@ patterns:
     '3': {name: constant.language}
     '4': {name: constant.language}
 
-# - comment: Function operator
-#   name: keyword.operator
-#   match: '[-+*/]?='
+- comment: Function cell
+  name: entity.name.function
+  match: '[A-Za-z][A-Za-z0-9]'
 
-# - comment: Function condition
-#   name: keyword.operator
-#   match: '([<>]=?)|==|(\*[\*A-Za-z0-9])'
-
-# - comment: Function keyword
-#   name: keyword.control
-#   match: '[Ii][Ff]|[Tt][Hh][Ee][Nn]|[Ee][Ll][Ss][Ee]'
+- comment: Comment
+  name: comment.line.double-slash
+  match: ' *//.*'
 ...
