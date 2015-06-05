@@ -1,7 +1,0 @@
-{
-    "scope": "source.maze",
-
-    "completions": [
-        { "trigger": "%", "contents": "U" }
-    ]
-}
