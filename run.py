@@ -123,7 +123,7 @@ def car_actions(maze, cars, functions, debug=False):
             removed.append(car)
 
         elif cell.name == 'out':
-            logs.append(car.value)
+            logs.append(str(car.value))
 
         elif cell.name == 'in':
             car.value = input('> ')

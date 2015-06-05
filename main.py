@@ -101,7 +101,7 @@ def main():
             if args.debug:
                 logs += new_logs
             else:
-                print('\n'.join(new_logs) if new_logs)
+                print('\n'.join(new_logs), end='\n' if new_logs else '')
 
     finally:
         if args.debug: print(SHOW_CUR)
