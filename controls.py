@@ -42,7 +42,7 @@ colors = {
     'hole':         {'fg': WHITE,    'bg': RED,     'style': None},
     'out':          {'fg': WHITE,    'bg': BLUE,    'style': None},
     'in':           {'fg': WHITE,    'bg': BLUE,    'style': None},
-    'one-use':      {'fg': WHITE,    'bg': MAGENTA, 'style': None},
+    'one-use':      {'fg': BLACK,    'bg': WHITE,   'style': None},
     'direction':    {'fg': WHITE,    'bg': CYAN,    'style': None},
     'signal':       {'fg': BLACK,    'bg': WHITE,   'style': None},
     'function':     {'fg': WHITE,    'bg': BLACK,   'style': None}
