@@ -65,7 +65,7 @@ def output(maze, cars, logs, colors=True):
                 }
 
             # Two characters wide.
-            value = str(value)
+            value = repr(str(value))[1:-1]
             if len(value) > 2:
                 value = value[:2]
             elif len(value) < 2:
