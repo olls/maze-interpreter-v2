@@ -1,6 +1,10 @@
 import sys
 
 
+def escape(value):
+    return repr(str(value))[1:-1]
+
+
 def error(message):
     while message.startswith(' '):
         message = message[1:]
