@@ -58,7 +58,11 @@ def output(maze, cars, logs, colors=True):
             if car:
                 # Replace value of cell with value of car if there is one.
                 value = car[-1].value
-                color = {'bg': color['bg'], 'fg': BLACK, 'style': None}
+                color = {
+                    'bg': color['bg'],
+                    'fg': WHITE if color['bg'] == BLACK else BLACK,
+                    'style': None
+                }
 
             # Two characters wide.
             value = str(value)
