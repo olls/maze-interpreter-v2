@@ -43,7 +43,7 @@ def get_args():
     return args
 
 
-def output(maze, cars, colors=True):
+def output(maze, cars, logs, colors=True):
     out = ''
 
     for y, row in enumerate(maze):
@@ -69,11 +69,13 @@ def output(maze, cars, colors=True):
 
             out += colorStr(value, **color) if colors else value
         out += CLS_END_LN + '\n'
+    out += (CLS_END_LN + '\n').join(logs[-10:])
 
     print(REDRAW + out + CLS_END)
 
 
 def main():
+    logs = []
     args = get_args()
 
     maze, functions = parser.parse_file(args.file)
@@ -84,7 +86,7 @@ def main():
     if args.debug:
         print(HIDE_CUR)
         print(CLS)
-        output(maze, cars, args.no_colors)
+        output(maze, cars, logs, args.no_colors)
 
     try:
         while cars:
@@ -92,13 +94,18 @@ def main():
 
             if args.debug:
                 time.sleep(1 / args.fps)
-                output(maze, cars, args.no_colors)
+                output(maze, cars, logs, args.no_colors)
 
-            maze, cars = run.car_actions(maze, cars, functions, debug=args.debug)
+            maze, cars, new_logs = run.car_actions(maze, cars, functions, debug=args.debug)
+
+            if len(new_logs):
+                if args.debug:
+                    logs += new_logs
+                else:
+                    print('\n'.join(new_logs))
+
     finally:
         if args.debug: print(SHOW_CUR)
-
-    if not args.debug: print('')
 
 
 if __name__ == '__main__':

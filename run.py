@@ -97,6 +97,7 @@ def car_actions(maze, cars, functions, debug=False):
         if maze[car.y][car.x].name == 'signal':
             signal.append(maze[car.y][car.x].value)
 
+    logs = []
     removed = []
     for car in cars_after:
 
@@ -122,7 +123,7 @@ def car_actions(maze, cars, functions, debug=False):
             removed.append(car)
 
         elif cell.name == 'out':
-            print(car.value)#, end='\n' * debug)
+            logs.append(car.value)
 
         elif cell.name == 'in':
             car.value = input('> ')
@@ -153,7 +154,7 @@ def car_actions(maze, cars, functions, debug=False):
     for car in removed:
         cars_after.remove(car)
 
-    return maze_after, cars_after
+    return maze_after, cars_after, logs
 
 
 def dir_to_pos(car, direction):
