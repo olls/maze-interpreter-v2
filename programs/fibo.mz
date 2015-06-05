@@ -1,0 +1,21 @@
+## ## ## ## ## ## ## ##    // fibonacci
+## ## ## ## ## ## ^^ ## ##
+## ## ## ## ## .. <> PP ##
+## ## ## ## ## .. ## .. ## ## ## ## ## ## ## ##  // left column is fib(n), right column is fib(n+1).
+## ## ## ## ## %D .. LD .. ** .. .. .. .. .. ##  // the small left loop sets fib(n) to 0; simultaneously,
+## .. .. .. ## >> ## .. ## ## ## ## ## ## .. ##  // the small right loop sets a clone of fib(n+1) to fib(n+1)+f(n).
+## MM ## .. ## .. ## .. ## ## .. .. .. ## .. ##  // (this technique is similar to brainfuck [->+<])
+## .. ** FL .. 02 ## %R .. ## .. ## PP ## .. ##  // the small loop at the bottom does nothing, but make sure
+## ## ## NL ## ## ## %D <> 01 FR .. .. ## .. ##  // that the original fib(n+1) is synchronized with the other cars.
+## ## ## >> ## ## ## .. ## ## 03 ## ## ## .. ##  // then fib(n+1) goes to left column and fib(n+1)+fib(n) to right column
+## ## ## () ## .. .. FM .. .. %R .. .. .. .. ##
+## ## ## ## ## .. ## .. ## ## ## ## ## ## ## ##
+## ## ## ## ## .. .. .. ##
+## ## ## ## ## ## ## ## ##
+PP-> += 1
+MM-> -= 1
+FR-> IF ** THEN %U ELSE %D
+FL-> IF == 0 THEN %D ELSE %L
+FM-> IF ** THEN %L ELSE %R
+LD-> IF ** THEN %L ELSE %D
+NL-> = "\n"
