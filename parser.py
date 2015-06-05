@@ -69,10 +69,14 @@ def get_function(line):
             except (ValueError, AttributeError):
                 funcs.error('Invalid function, invalid value for signal.')
         else:
-            match = re.search(r'-?[0-9]+', function)
-            try:
-                number = int(match.group())
-            except (ValueError, AttributeError):
+            match = re.search(r'(-?[0-9]+)|((?<=")[^"]*(?=")|(?<=\')[^\']*(?=\'))', function)
+            if match.group(1):
+                number = int(match.group(1))
+                string = None
+            elif match.group(2) and condition == '==':
+                number = None
+                string = str(match.group(2))
+            else:
                 funcs.error('Invalid function, invalid value for condition.')
 
         # Get 'then' keyword and statement.
@@ -109,7 +113,10 @@ def get_function(line):
         elif condition == '<=':
             function = lambda value: then if int(value) <= number else else_
         elif condition == '==':
-            function = lambda value: then if int(value) == number else else_
+            if string:
+                function = lambda value: then if str(value) == string else else_
+            else:
+                function = lambda value: then if int(value) == number else else_
         elif condition == '>=':
             function = lambda value: then if int(value) >= number else else_
         elif condition == '>':
