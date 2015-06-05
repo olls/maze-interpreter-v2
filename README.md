@@ -9,6 +9,7 @@ Please create an issue or pull request if you find a problem :)
 
 ![A Fibonacci program running with the interpreter.](http://oliverfaircliff.com/~olls/readme-imgs/maze-interpreter/fibonacci.png)
 
+
 Usage
 -----
 
@@ -27,10 +28,12 @@ Depends on python3.
       -c, --no-colors    shows the maze without color when in debug mode.
       -f FPS, --fps FPS  the fps of the maze when in debug mode.
 
+
 [Syntax](https://github.com/olls/maze-interpreter-v2/blob/master/syntax.md)
 ---------------------------------------------------------------------------
 
 The parsing is not perfect, but it seems to work well enough. It allows a much simpler syntax than that on the Esolangs wiki, although that works fine too. The commas are not needed between the commands, but you can add as much white space as you want, it will be ignored. Because the white space is ignored, the examples on the wiki need the leading white space converted to walls to align them properly. You can also use a ``` `` ``` (double tick) as a wall, to reduce the heaviness of the solid wall areas.
+
 
 Behavior
 --------
