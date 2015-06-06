@@ -53,5 +53,6 @@ def output(maze, cars, logs, colors=True):
 def init():
     print(HIDE_CUR + CLS)
 
+
 def end():
     print(SHOW_CUR)
