@@ -90,10 +90,10 @@ def car_actions(maze, cars, functions, debug=False):
     """
 
     # Do signal first so it's enabled before any functions are run.
-    signal = []
+    signals = []
     for car in cars:
         if maze[car.y][car.x].name == 'signal':
-            signal.append(maze[car.y][car.x].value)
+            signals.append(maze[car.y][car.x].value)
 
     logs = ''
     removed = []
@@ -141,7 +141,7 @@ def car_actions(maze, cars, functions, debug=False):
             try:
                 result = str(function(car.value))
             except TypeError:
-                result = str(function(car.value, signal))
+                result = str(function(car.value, signals))
 
             if not result == 'None':
                 match = re.match(controls.regexes['direction'], result)
