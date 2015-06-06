@@ -72,7 +72,7 @@ class Output:
 
 
 def log_lines(logs, n):
-    return ('\n' + escape_codes['CLS_END_LN']).join(line for line in logs.split('\n')[-n:])
+    return (escape_codes['CLS_END_LN'] + '\n').join(line for line in logs.split('\n')[-n:])
 
 
 def init(simple_out):
