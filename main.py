@@ -61,7 +61,7 @@ def main():
 
             if args.debug:
                 if new_logs:
-                    logs = out.log_lines(logs + new_logs, args.log_length, simple_out)
+                    logs = out.log_lines(logs + new_logs, args.log_length, args.simple_out)
                 time.sleep(1 / args.fps)
 
             else:
