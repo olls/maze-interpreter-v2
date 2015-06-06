@@ -9,7 +9,7 @@ You can get the sublime syntax highlighting package from [`sublime-maze`](https:
 
 Please create an issue or pull request if you find a problem :)
 
-![A Fibonacci program running with the interpreter.](http://oliverfaircliff.com/~olls/readme-imgs/maze-interpreter/fibonacci.png)
+![A Fibonacci program running with the interpreter.](http://oliverfaircliff.com/~olls/readme-imgs/maze-interpreter/fibo.gif)
 
 
 Usage
