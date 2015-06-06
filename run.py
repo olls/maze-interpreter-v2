@@ -97,7 +97,7 @@ def car_actions(maze, cars, functions, debug=False):
         if maze[car.y][car.x].name == 'signal':
             signal.append(maze[car.y][car.x].value)
 
-    logs = []
+    logs = ''
     removed = []
     for car in cars_after:
 
@@ -123,7 +123,10 @@ def car_actions(maze, cars, functions, debug=False):
             removed.append(car)
 
         elif cell.name == 'out':
-            logs.append(str(car.value))
+            logs += str(car.value)
+
+        elif cell.name == 'ln-out':
+            logs += str(car.value) + '\n'
 
         elif cell.name == 'in':
             car.value = input('> ')

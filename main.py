@@ -12,7 +12,7 @@ from colors import *
 
 CLS = '\033[2J'
 CLS_END = '\033[0J'
-CLS_END_LN = '\033[0K\n'
+CLS_END_LN = '\033[0K'
 REDRAW = '\033[0;0f'
 HIDE_CUR = '\033[?25l'
 SHOW_CUR = '\033[?25h'
@@ -41,6 +41,10 @@ def get_args():
 
     args = parser.parse_args()
     return args
+
+
+def log_lines(logs):
+    return '\n'.join(line + CLS_END_LN for line in logs.split('\n')[-10:])
 
 
 def output(maze, cars, logs, colors=True):
@@ -72,14 +76,14 @@ def output(maze, cars, logs, colors=True):
                 value = ('0' * (2 - len(value))) + value
 
             out += colorStr(value, **color) if colors else value
-        out += CLS_END_LN
-    out += CLS_END_LN.join(logs[-10:])
+        out += CLS_END_LN + '\n'
+    out += logs
 
     print(REDRAW + out + CLS_END)
 
 
 def main():
-    logs = []
+    logs = ''
     args = get_args()
 
     maze, functions = parser.parse_file(args.file)
@@ -103,9 +107,12 @@ def main():
             maze, cars, new_logs = run.car_actions(maze, cars, functions, debug=args.debug)
 
             if args.debug:
-                logs += new_logs
+                if new_logs:
+                    logs += new_logs
+                    logs = log_lines(logs)
+
             else:
-                print('\n'.join(new_logs), end='\n' if new_logs else '')
+                print(new_logs, end='')
 
     finally:
         if args.debug: print(SHOW_CUR)
