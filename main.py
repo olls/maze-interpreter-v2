@@ -34,6 +34,8 @@ def get_args():
         help='the program to run')
     parser.add_argument('-d', '--debug', action='store_true',
         help='display the maze during interpretation.')
+    parser.add_argument('-l', '--log-length', default=10, type=int,
+        help='Max length of debug log.')
     parser.add_argument('-c', '--no-colors', action='store_false',
         help='shows the maze without color when in debug mode.')
     parser.add_argument('-f', '--fps', default=10, type=int,
@@ -43,8 +45,8 @@ def get_args():
     return args
 
 
-def log_lines(logs):
-    return '\n'.join(line + CLS_END_LN for line in logs.split('\n')[-10:])
+def log_lines(logs, n):
+    return '\n'.join(line for line in logs.split('\n')[-n:])
 
 
 def output(maze, cars, logs, colors=True):
@@ -109,7 +111,7 @@ def main():
             if args.debug:
                 if new_logs:
                     logs += new_logs
-                    logs = log_lines(logs)
+                    logs = log_lines(logs, args.log_length)
 
             else:
                 print(new_logs, end='')
