@@ -14,11 +14,13 @@ MOV_CUR = lambda x, y: '\033[{};{}H'.format(y+1, x+1)
 
 
 class Output:
-    def __init__(self, maze, colors=True, simple_out=False):
+    def __init__(self, maze, origin, colors=True, simple_out=False):
+        self.x, self.y = origin
         self.colors = colors
         self.simple_out = simple_out
-        self.cars = []
+
         self.last = [[None for cell in row] for row in maze]
+        self.cars = []
 
     def render_cell(self, cars, cell, x, y):
         # Get value of cell without car.
@@ -45,6 +47,9 @@ class Output:
 
         return colorStr(value, **color) if self.colors else value
 
+    def mov_cur(self, x, y):
+        return MOV_CUR((x + self.x) * 2, y + self.y)
+
     def update(self, new, cars):
         # Assemble diff
         diff = ''
@@ -57,9 +62,12 @@ class Output:
                 if not self.last[y][x] == cell_out:
                     # Changed
                     self.last[y][x] = cell_out
-                    diff += MOV_CUR(x*2, y) + cell_out
+                    diff += self.mov_cur(x, y) + cell_out
 
         return diff
+
+    def to_end(self):
+        return self.mov_cur(0, len(self.last))
 
 
 
