@@ -109,9 +109,7 @@ def main():
             maze, cars, new_logs = run.car_actions(maze, cars, functions, debug=args.debug)
 
             if args.debug:
-                if new_logs:
-                    logs += new_logs
-                    logs = log_lines(logs, args.log_length)
+                if new_logs: logs = log_lines(logs + new_logs, args.log_length)
 
             else:
                 print(new_logs, end='')
