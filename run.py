@@ -88,8 +88,6 @@ def car_actions(maze, cars, functions, debug=False):
     """
         Runs any functions a car is on.
     """
-    maze_after = copy.deepcopy(maze)
-    cars_after = copy.deepcopy(cars)
 
     # Do signal first so it's enabled before any functions are run.
     signal = []
@@ -99,7 +97,7 @@ def car_actions(maze, cars, functions, debug=False):
 
     logs = ''
     removed = []
-    for car in cars_after:
+    for car in cars:
 
         # Count down any paused cars.
         if car.pause:
@@ -107,7 +105,6 @@ def car_actions(maze, cars, functions, debug=False):
             continue
 
         cell = maze[car.y][car.x]
-        cell_after = maze_after[car.y][car.x]
 
         # Actions:
         if cell.name == 'wall':
@@ -132,8 +129,8 @@ def car_actions(maze, cars, functions, debug=False):
             car.value = input('> ')
 
         elif cell.name == 'one-use':
-            cell_after.name = 'wall'
-            cell_after.value = controls.display['wall']
+            cell.name = 'wall'
+            cell.value = controls.display['wall']
 
         elif cell.name == 'direction':
             car.direction = cell.value[1]
@@ -155,9 +152,9 @@ def car_actions(maze, cars, functions, debug=False):
 
     # Remove any deleted cars.
     for car in removed:
-        cars_after.remove(car)
+        cars.remove(car)
 
-    return maze_after, cars_after, logs
+    return maze, cars, logs
 
 
 def dir_to_pos(car, direction):
