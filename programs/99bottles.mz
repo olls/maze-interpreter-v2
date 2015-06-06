@@ -13,10 +13,10 @@
 ## () ## ## ## ## () ## ## ## () ## ## //Destroy Cars
 ## ## ## ## ## ## ## ## ## ## ## ## ##
 
-AA-> =99
-AB-> =" bottles of Beer on the wall, "
-AC-> =" bottles of Beer."
-AD-> IF ==1 THEN %D ELSE %R
+AA-> = 99
+AB-> = " bottles of Beer on the wall, "
+AC-> = " bottles of Beer."
+AD-> IF == 1 THEN %D ELSE %R
 AE-> IF ** THEN %R ELSE %D
-AF-> ="Take one down and pass it around, "
+AF-> = "Take one down and pass it around, "
 AG-> -= 1
