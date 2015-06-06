@@ -26,6 +26,8 @@ def get_args():
         help='the program to run')
     parser.add_argument('-d', '--debug', action='store_true',
         help='display the maze during interpretation.')
+    parser.add_argument('-s', '--simple-out', action='store_true',
+        help='simple debug output.')
     parser.add_argument('-l', '--log-length', default=10, type=int,
         help='Max length of debug log.')
     parser.add_argument('-c', '--no-colors', action='store_false',
@@ -46,7 +48,7 @@ def main():
 
     cars = run.create_cars(maze, Car)
 
-    if args.debug: out.init()
+    if args.debug: out.init(args.simple_out)
 
     try:
         while cars:

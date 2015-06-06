@@ -3,16 +3,18 @@ import funcs
 from colors import *
 
 
-CLS = '\033[2J'
-CLS_END = '\033[0J'
-CLS_END_LN = '\033[0K'
-REDRAW = '\033[0;0f'
-HIDE_CUR = '\033[?25l'
-SHOW_CUR = '\033[?25h'
+escape_codes = {
+  'CLS': '\033[2J',
+  'CLS_END': '\033[0J',
+  'CLS_END_LN': '\033[0K',
+  'REDRAW': '\033[0;0f',
+  'HIDE_CUR': '\033[?25l',
+  'SHOW_CUR': '\033[?25h'
+}
 
 
 def log_lines(logs, n):
-    return ('\n' + CLS_END_LN).join(line for line in logs.split('\n')[-n:])
+    return ('\n' + escape_codes['CLS_END_LN']).join(line for line in logs.split('\n')[-n:])
 
 
 def output(maze, cars, logs, colors=True):
@@ -44,15 +46,19 @@ def output(maze, cars, logs, colors=True):
                 value = ('0' * (2 - len(value))) + value
 
             out += colorStr(value, **color) if colors else value
-        out += CLS_END_LN + '\n'
+        out += escape_codes['CLS_END_LN'] + '\n'
     out += logs
 
-    print(REDRAW + out + CLS_END)
+    print(escape_codes['REDRAW'] + out + escape_codes['CLS_END'])
 
 
-def init():
-    print(HIDE_CUR + CLS)
+def init(simple_out):
+    global escape_codes
+    for i in escape_codes:
+      escape_codes[i] = '' if simple_out else escape_codes[i]
+
+    print(escape_codes['HIDE_CUR'] + escape_codes['CLS'])
 
 
 def end():
-    print(SHOW_CUR)
+    print(escape_codes['SHOW_CUR'])
