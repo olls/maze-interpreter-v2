@@ -24,6 +24,8 @@ def get_args():
         help='the program to run')
     parser.add_argument('-d', '--debug', action='store_true',
         help='display the maze during interpretation.')
+    parser.add_argument('-s', '--simple-out', action='store_true',
+        help='simple debug output.')
     parser.add_argument('-l', '--log-length', default=10, type=int,
         help='Max length of debug log.')
     parser.add_argument('-c', '--no-colors', action='store_false',
@@ -44,27 +46,27 @@ def main():
 
     cars = run.create_cars(maze, Car)
 
-    if args.debug: out.init()
+    if args.debug and not args.simple_out: out.init()
 
     try:
         while cars:
 
             if args.debug:
-                out.output(maze, cars, logs, args.no_colors)
+                out.output(maze, cars, logs, args.no_colors, args.simple_out)
 
             maze, cars = run.move_cars(maze, cars)
             maze, cars, new_logs = run.car_actions(maze, cars, functions, debug=args.debug)
 
             if args.debug:
                 if new_logs:
-                    logs = out.log_lines(logs + new_logs, args.log_length)
+                    logs = out.log_lines(logs + new_logs, args.log_length, simple_out)
                 time.sleep(1 / args.fps)
 
             else:
                 print(new_logs, end='')
 
     finally:
-        if args.debug: out.end()
+        if args.debug and not args.simple_out: out.end()
 
 
 if __name__ == '__main__':

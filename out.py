@@ -11,11 +11,11 @@ HIDE_CUR = '\033[?25l'
 SHOW_CUR = '\033[?25h'
 
 
-def log_lines(logs, n):
-    return ('\n' + CLS_END_LN).join(line for line in logs.split('\n')[-n:])
+def log_lines(logs, n, simple_out=False):
+    return ('\n' + ('' if simple_out else CLS_END_LN)).join(line for line in logs.split('\n')[-n:])
 
 
-def output(maze, cars, logs, colors=True):
+def output(maze, cars, logs, colors=True, simple_out=False):
     out = ''
 
     for y, row in enumerate(maze):
@@ -44,10 +44,10 @@ def output(maze, cars, logs, colors=True):
                 value = ('0' * (2 - len(value))) + value
 
             out += colorStr(value, **color) if colors else value
-        out += CLS_END_LN + '\n'
+        out += ('' if simple_out else CLS_END_LN) + '\n'
     out += logs
 
-    print(REDRAW + out + CLS_END)
+    print(('' if simple_out else REDRAW) + out + ('' if simple_out else CLS_END))
 
 
 def init():
