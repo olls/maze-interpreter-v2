@@ -46,7 +46,7 @@ def get_args():
 
 
 def log_lines(logs, n):
-    return '\n'.join(line for line in logs.split('\n')[-n:])
+    return ('\n' + CLS_END_LN).join(line for line in logs.split('\n')[-n:])
 
 
 def output(maze, cars, logs, colors=True):
