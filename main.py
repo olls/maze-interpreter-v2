@@ -40,7 +40,7 @@ def get_args():
 
 
 def main():
-    logs = ''
+    logs, new_logs = '', ''
     args = get_args()
 
     maze, functions = parser.parse_file(args.file)
@@ -57,16 +57,15 @@ def main():
 
             if args.debug:
                 print(output.update(maze, cars))
-                print(output.to_end() + logs)
+                if new_logs:
+                    logs = out.log_lines(logs + new_logs, args.log_length)
+                    print(output.to_end() + logs)
 
             maze, cars = run.move_cars(maze, cars)
             maze, cars, new_logs = run.car_actions(maze, cars, functions, debug=args.debug)
 
             if args.debug:
-                if new_logs:
-                    logs = out.log_lines(logs + new_logs, args.log_length)
                 time.sleep(1 / args.fps)
-
             else:
                 print(new_logs, end='')
 
