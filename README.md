@@ -1,15 +1,17 @@
 Maze Interpreter v2
 ===================
 
-My second attempt at a Maze interpreter: http://esolangs.org/wiki/Maze
+An interpreter for the Maze programming language, based on the description on the [Esolangs Wiki](http://esolangs.org/wiki/Maze).
+
+Maze is a language based on an ASCII art 'maze' for 'cars' (variables) to move around. The shape of your maze effectively describes the program flow and the branches the variables take. It makes a lot more sense if you look at an example, here is a partial recording of a Fibonacci program running:
+
+![A Fibonacci program running with the interpreter.](http://oliverfaircliff.com/~olls/readme-imgs/maze-interpreter/fibo.gif)
 
 All the examples on the Esolangs wiki page work. I'm not entirely sure if the Turing complete example works correctly, because I'm not exactly sure what it is meant to do, but it doesn't enter the loop properly. See some examples in the [programs](https://github.com/olls/maze-interpreter-v2/tree/master/programs) directory.
 
 You can get the sublime syntax highlighting package from [`sublime-maze`](https://github.com/olls/sublime-maze).
 
 Please create an issue or pull request if you find a problem :)
-
-![A Fibonacci program running with the interpreter.](http://oliverfaircliff.com/~olls/readme-imgs/maze-interpreter/fibo.gif)
 
 
 Usage
@@ -39,11 +41,14 @@ The parsing is not perfect, but it seems to work well enough. It allows a much s
 ### Extended Syntax
 I have extended some of the syntax from the Esolangs Wiki to make the language a little more usable. Here is a list of the features:
 
-#### Named signals:
+#### Named signals
 Signals can also be in the form `*X`, where `X` is a letter of number and the name of the signal. The `**` signal will trigger and detect all named signals, whereas named signals will only detect/trigger signals with the same name.
 
 #### Null Direction
 `%N` in a function will keep the car in the same cell for the next frame.
+
+#### Line Out
+The `>/` cell will print the value of the car with a newline appended to the end.
 
 
 Behaviour
