@@ -16,10 +16,9 @@ MOV_CUR = lambda x, y: '\033[{};{}H'.format(y+1, x+1)
 
 
 class Output:
-    def __init__(self, maze, origin, colors=True, simple_out=False):
+    def __init__(self, maze, origin, colors=True):
         self.x, self.y = origin
         self.colors = colors
-        self.simple_out = simple_out
 
         self.last = [[None for cell in row] for row in maze]
         self.cars = []
