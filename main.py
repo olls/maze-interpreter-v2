@@ -48,13 +48,15 @@ def main():
 
     cars = run.create_cars(maze, Car)
 
+    output = out.Output(maze, args.no_colors, args.simple_out)
+
     if args.debug and not args.simple_out: out.init()
 
     try:
         while cars:
 
             if args.debug:
-                out.output(maze, cars, logs, args.no_colors, args.simple_out)
+                print(output.update(maze, cars))
 
             maze, cars = run.move_cars(maze, cars)
             maze, cars, new_logs = run.car_actions(maze, cars, functions, debug=args.debug)
@@ -68,6 +70,7 @@ def main():
                 print(new_logs, end='')
 
     finally:
+        pass
         if args.debug and not args.simple_out: out.end()
 
 
