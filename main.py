@@ -94,8 +94,7 @@ def main():
     cars = run.create_cars(maze, Car)
 
     if args.debug:
-        print(HIDE_CUR)
-        print(CLS)
+        print(HIDE_CUR + CLS)
         output(maze, cars, logs, args.no_colors)
 
     try:
