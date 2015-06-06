@@ -15,10 +15,11 @@ def log_lines(logs, n):
     return ('\n' + CLS_END_LN).join(line for line in logs.split('\n')[-n:])
 
 
-def output(maze, cars, logs, colors=True):
+def output(maze, cars, logs, colors=True, scale=1):
     out = ''
 
     for y, row in enumerate(maze):
+        next_row = ''
         for x, cell in enumerate(row):
 
             # Get value of cell without car.
@@ -43,8 +44,9 @@ def output(maze, cars, logs, colors=True):
             elif len(value) < 2:
                 value = ('0' * (2 - len(value))) + value
 
-            out += colorStr(value, **color) if colors else value
-        out += CLS_END_LN + '\n'
+            next_row += (colorStr(value, **color) if colors else value) * scale
+
+        out += (next_row + CLS_END_LN + '\n') * scale
     out += logs
 
     print(REDRAW + out + CLS_END)
