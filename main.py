@@ -48,7 +48,7 @@ def main():
 
     cars = run.create_cars(maze, Car)
 
-    output = out.Output(maze, (0, 0), args.no_colors)
+    output = out.Output(maze, args.no_colors)
 
     if args.debug: out.init(args.simple_out)
 
