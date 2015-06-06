@@ -1,4 +1,4 @@
-## ## ## ## ## ## ## ##    // fibonacci
+## ## ## ## ## ## ## ##    // Fibonacci
 ## ## ## ## ## ## ^^ ## ##
 ## ## ## ## ## .. <> PP ##
 ## ## ## ## ## .. ## .. ## ## ## ## ## ## ## ##  // left column is fib(n), right column is fib(n+1).
@@ -12,10 +12,12 @@
 ## ## ## ## ## .. ## .. ## ## ## ## ## ## ## ##
 ## ## ## ## ## .. .. .. ##
 ## ## ## ## ## ## ## ## ##
-PP-> += 1
-MM-> -= 1
-FR-> IF ** THEN %U ELSE %D
-FL-> IF == 0 THEN %D ELSE %L
-FM-> IF ** THEN %L ELSE %R
-LD-> IF ** THEN %L ELSE %D
-NL-> = "\n"
+
+
+PP -> += 1
+MM -> -= 1
+FR -> IF ** THEN %U ELSE %D
+FL -> IF == 0 THEN %D ELSE %L
+FM -> IF ** THEN %L ELSE %R
+LD -> IF ** THEN %L ELSE %D
+NL -> = "\n"
