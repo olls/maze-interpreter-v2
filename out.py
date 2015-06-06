@@ -3,12 +3,14 @@ import funcs
 from colors import *
 
 
-CLS = '\033[2J'
-CLS_END = '\033[0J'
-CLS_END_LN = '\033[0K'
-REDRAW = '\033[0;0f'
-HIDE_CUR = '\033[?25l'
-SHOW_CUR = '\033[?25h'
+escape_codes = {
+  'CLS': '\033[2J',
+  'CLS_END': '\033[0J',
+  'CLS_END_LN': '\033[0K',
+  'REDRAW': '\033[0;0f',
+  'HIDE_CUR': '\033[?25l',
+  'SHOW_CUR': '\033[?25h'
+}
 
 MOV_CUR = lambda x, y: '\033[{};{}H'.format(y+1, x+1)
 
@@ -70,14 +72,17 @@ class Output:
         return self.mov_cur(0, len(self.last))
 
 
+def log_lines(logs, n):
+    return ('\n' + escape_codes['CLS_END_LN']).join(line for line in logs.split('\n')[-n:])
 
-def log_lines(logs, n, simple_out=False):
-    return ('\n' + ('' if simple_out else CLS_END_LN)).join(line for line in logs.split('\n')[-n:])
 
+def init(simple_out):
+    global escape_codes
+    for i in escape_codes:
+      escape_codes[i] = '' if simple_out else escape_codes[i]
 
-def init():
-    print(HIDE_CUR + CLS)
+    print(escape_codes['HIDE_CUR'] + escape_codes['CLS'])
 
 
 def end():
-    print(SHOW_CUR + CLS)
+    print(escape_codes['SHOW_CUR'] + escape_codes['CLS'])

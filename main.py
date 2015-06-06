@@ -50,7 +50,7 @@ def main():
 
     output = out.Output(maze, (0, 0), args.no_colors, args.simple_out)
 
-    if args.debug and not args.simple_out: out.init()
+    if args.debug: out.init(args.simple_out)
 
     try:
         while cars:
@@ -64,15 +64,14 @@ def main():
 
             if args.debug:
                 if new_logs:
-                    logs = out.log_lines(logs + new_logs, args.log_length, args.simple_out)
+                    logs = out.log_lines(logs + new_logs, args.log_length)
                 time.sleep(1 / args.fps)
 
             else:
                 print(new_logs, end='')
 
     finally:
-        pass
-        if args.debug and not args.simple_out: out.end()
+        if args.debug: out.end()
 
 
 if __name__ == '__main__':
