@@ -17,6 +17,8 @@ Please create an issue or pull request if you find a problem :)
 Usage
 -----
 
+(Use `-d` for the cool animations in GIF above!)
+
 Depends on python3.
 
     usage: main.py [-h] [-d] [-c] [-f FPS] file
@@ -42,7 +44,7 @@ The parsing is not perfect, but it seems to work well enough. It allows a much s
 I have extended some of the syntax from the Esolangs Wiki to make the language a little more usable. Here is a list of the features:
 
 #### Named signals
-Signals can also be in the form `*X`, where `X` is a letter of number and the name of the signal. The `**` signal will trigger and detect all named signals, whereas named signals will only detect/trigger signals with the same name.
+Signals can also be in the form `*X`, where `X` is a letter or number and is the name of the signal. The `**` signal will trigger and detect all named signals, whereas named signals will only detect/trigger signals with the same name.
 
 #### Null Direction
 `%N` in a function will keep the car in the same cell for the next frame.
