@@ -1,6 +1,8 @@
 Maze Interpreter v2
 ===================
 
+New better V3 [here](https://github.com/olls/maze-interpreter-v3)!
+
 An interpreter for the Maze programming language, based on the description on the [Esolangs Wiki](http://esolangs.org/wiki/Maze).
 
 Maze is a language based on an ASCII art 'maze' for 'cars' (variables) to move around. The shape of your maze describes the program flow and the branches the variables take. It makes a lot more sense if you look at an example, here is a partial recording of a Fibonacci program running:
