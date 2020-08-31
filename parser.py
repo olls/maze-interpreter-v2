@@ -73,7 +73,7 @@ def get_function(line):
             if match.group(1):
                 number = int(match.group(1))
                 string = None
-            elif match.group(2) and condition == '==':
+            elif isinstance(match.group(2),str) and condition == '==':
                 number = None
                 string = str(match.group(2))
             else:
@@ -113,7 +113,7 @@ def get_function(line):
         elif condition == '<=':
             function = lambda value: then if int(value) <= number else else_
         elif condition == '==':
-            if string:
+            if isinstance(string,str):
                 function = lambda value: then if funcs.escape(value) == string else else_
             else:
                 function = lambda value: then if int(value) == number else else_
